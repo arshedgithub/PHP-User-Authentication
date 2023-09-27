@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        .menu {
+            text-align: center;
+            margin: auto;
+            width: 300px;
+            border: 1px solid black;
+            padding: 20px;
+        }
+        form {
+            margin: auto;
+            margin-top: 50px;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 25px;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="home.php">Home</a><br>
+        <a href="products.php">Products</a><br>
+        <a href="logout.php">logout</a>
+    </div>
+    <form action="server.php" method="get">
+        <label for="name">Name : </label>
+        <input type="text" name="name">
+        <br><br>
+        <label for="pwd">Password : </label>
+        <input type="password" name="pwd">
+        <br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
