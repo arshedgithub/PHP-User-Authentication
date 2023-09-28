@@ -1,33 +1,41 @@
 <html>
+        <style>
+            .menu {
+                    text-align: center;
+                    margin: auto;
+                    width: 300px;
+                    border: 1px solid black;
+                    padding: 20px;
+                }
+        </style>
     <body>
-        
-        <?php 
+        <?php
+
             $username = "user";
             $password = "1234";
 
             session_start();
 
-            if (isset($_SESSION["user"])) {
-                echo "Welcome ". $_GET["name"]."<br>";
-                echo "You are logged in<br>";
-                echo "<a href='logout.php'>logout</a>";
+            if (isset($_SESSION['user'])){
+                    echo "Welcome ".$username;
             } else {
-                if ($_GET["name"]==$username && $_GET["pwd"]==$password) {
-                    if ($_GET["check"]){
-                        setCookie("username",$username);
-                        setCookie("password",$password);
+                if ($_GET['name'] == $username && $_GET['pwd'] == $password){
+                    $_SESSION['user'] = $username;
+                    echo "Welcome ".$username;
+                    if($_GET["check"]){
+                        setCookie('username', $username);
+                        setCookie('password', $password);
                     }
-                    $_SESSION["user"] = $username;
-                    echo "Welcome ". $_GET["name"]."<br>";
-                    echo "You are logged in<br>";
-                    echo "<a href='logout.php'>logout</a>";
                 } else {
-                    echo "Incorrect login details";
+                    echo "Incorrect details<br>";
+                    echo "<a href='login.php'>login</a>";
                 }
             }
         ?>
-        <div>
-            <a href="products.php">Products</a>
+        <div class="menu">
+            <a href="home.php">Home</a><br>
+            <a href="products.php">Products</a><br>
+            <a href="logout.php">logout</a>
         </div>
     </body>
 </html>
