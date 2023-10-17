@@ -9,33 +9,56 @@
                 }
         </style>
     <body>
+
         <?php
 
-            $username = "user";
-            $password = "1234";
-
+            include("conn.php");
+            
+            $sql = "SELECT id, name, username, password FROM users";
+            $result = $conn->query($sql); 
+            
             session_start();
+            
+            // retrieve data from login form input fields
+            $formUsername = $_GET['name'];
+            $formPassword = $_GET['pwd'];
 
-            if (isset($_SESSION['user'])){
-                    echo "Welcome ".$username;
+            if (isset($_SESSION['username'])){
+                    // $name = isset($_SESSION['name']) ? $_SESSION['name'] : $_SESSION['username'];
+                    echo "Welcome ".$_SESSION['name'];
             } else {
-                if ($_GET['name'] == $username && $_GET['pwd'] == $password){
-                    $_SESSION['user'] = $username;
-                    echo "Welcome ".$username;
-                    if($_GET["check"]){
-                        setCookie('username', $username);
-                        setCookie('password', $password);
+                while($row = $result->fetch_assoc()) {
+                    if ($row['username'] == $formUsername && $row['password'] == $formPassword){
+                        // store user details in a session
+                        $_SESSION['username'] = $formUsername;
+                        $_SESSION['name'] = $row['name'];
+    
+                        // if checkbox checked save username and password in cookies
+                        if(isset($_GET["check"])){
+                            setCookie('username', $formUsername);
+                            setCookie('password', $formPassword);
+                        }
+
+                        echo "<script>location.href='products.php'</script>";
+                        return;
                     }
-                } else {
-                    echo "Incorrect details<br>";
-                    echo "<a href='login.php'>login</a>";
                 }
+
+                // if username and password didn't match
+                echo "Incorrect details<br>";
+                echo "<a href='login.php'>login</a>";
             }
+
+            
+
+     
         ?>
+
         <div class="menu">
             <a href="home.php">Home</a><br>
             <a href="products.php">Products</a><br>
             <a href="logout.php">logout</a>
         </div>
+
     </body>
 </html>
